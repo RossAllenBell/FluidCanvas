@@ -1,0 +1,16 @@
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script src="../FluidCanvas.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        document.body.style.margin = 0;
+        document.body.style.padding = 0;
+        
+        var canvas = new FluidCanvas({drawableWidth:300, drawableHeight:200});
+        
+        var context = canvas.getContext('2d');
+        context.fillStyle = '#EEEEEE';
+        context.fillRect(0, 0, canvas.width, canvas.height);        
+        context.fillStyle = '#DDDDDD';
+        context.fillRect(0, 0, 100, 100);
+    });
+</script>
