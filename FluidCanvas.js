@@ -94,5 +94,6 @@ function FluidCanvas(properties) {
     canvas.css('width', '100%').css('height', '100%');
     resizeContainerDiv();
     
+    canvas[0].resizeContainerDiv = resizeContainerDiv;    
     return canvas[0];
 }
