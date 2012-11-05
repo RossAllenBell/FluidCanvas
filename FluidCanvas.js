@@ -18,11 +18,13 @@ if (typeof jQuery === 'undefined') {
  * drawableHeight: Drawable height of canvas, regardless of real pixel
  * dimensions; defaults to window dimension if not set.
  * 
- * availableWidth: Function used to determine maximum width (in pixels) the view
- * port can use up; defaults to 100% of the window height in pixels
+ * unavailableWidth: Function used to determine unavailable pixels when
+ * calculating available space to resize to. Use this property to place a
+ * FluidCanvas on a page with other elements without causing the canvas to
+ * resize to a size that flows off the window (causing the page to be
+ * scrollable); defaults to returning 0
  * 
- * availableHeight: Function used to determine maximum height (in pixels) the
- * view port can use up; defaults to 100% of the window height in pixels
+ * unavailableHeight: see unavailableWidth
  * 
  */
 function FluidCanvas(properties) {
@@ -48,25 +50,25 @@ function FluidCanvas(properties) {
         $('body').append(containerDiv);
     }
     
-    var viewportAvailableWidth = properties.availableWidth;
-    if (typeof viewportAvailableWidth === 'undefined') {
-        viewportAvailableWidth = function() {
-            return $(window).width();
+    var unavailableWidth = properties.unavailableWidth;
+    if (typeof unavailableWidth === 'undefined') {
+        unavailableWidth = function() {
+            return 0;
         };
     }
     
-    var viewportAvailableHeight = properties.availableHeight;
-    if (typeof viewportAvailableHeight === 'undefined') {
-        viewportAvailableHeight = function() {
-            return $(window).height();
+    var unavailableHeight = properties.unavailableHeight;
+    if (typeof unavailableHeight === 'undefined') {
+        unavailableHeight = function() {
+            return 0;
         };
     }
     
     var aspectRatio = drawableWidth / drawableHeight;
     
     function resizeContainerDiv() {
-        var newWidth = viewportAvailableWidth();
-        var newHeight = viewportAvailableHeight();
+        var newWidth = $(window).width() - (parseInt($('body').css('margin-left')) + parseInt($('body').css('margin-right'))) - unavailableWidth();
+        var newHeight = $(window).height() - (parseInt($('body').css('margin-top')) + parseInt($('body').css('margin-bottom'))) - unavailableHeight();
         if (newWidth === 0 || newHeight === 0) {
             return;
         }

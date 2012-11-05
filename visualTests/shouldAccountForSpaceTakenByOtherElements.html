@@ -9,7 +9,7 @@
         document.body.style.margin = 0;
         document.body.style.padding = 0;
         
-        var canvas = new FluidCanvas({drawableWidth: 200, drawableHeight: 200, availableHeight: function(){return $(window).height() - $('#theDiv').height();}});
+        var canvas = new FluidCanvas({drawableWidth: 200, drawableHeight: 200, unavailableHeight: function(){return $('#theDiv').height();}});
         
         var context = canvas.getContext('2d');
         context.fillStyle = '#EEEEEE';
