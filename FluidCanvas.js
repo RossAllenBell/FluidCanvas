@@ -8,6 +8,7 @@ if (typeof jQuery === 'undefined') {
  * if the document body is resized. The dimensions that the canvas maintains
  * can be specified with constructor properties.
  * 
+ * 
  * Configurable properties:
  * 
  * container: Container div, automatically created if not set.
@@ -25,6 +26,13 @@ if (typeof jQuery === 'undefined') {
  * scrollable); defaults to returning 0
  * 
  * unavailableHeight: see unavailableWidth
+ * 
+ * 
+ * The canvas returned has additional utility properties:
+ * 
+ * resizeContainerDiv: function to request container div resize
+ * drawableWidth: property containing drawable width
+ * drawableHeight: property containing drawable height
  * 
  */
 function FluidCanvas(properties) {
@@ -94,6 +102,9 @@ function FluidCanvas(properties) {
     canvas.css('width', '100%').css('height', '100%');
     resizeContainerDiv();
     
-    canvas[0].resizeContainerDiv = resizeContainerDiv;    
-    return canvas[0];
+    canvas = canvas[0];
+    canvas.resizeContainerDiv = resizeContainerDiv;
+    canvas.drawableWidth = drawableWidth;
+    canvas.drawableHeight = drawableHeight;
+    return canvas;
 }
